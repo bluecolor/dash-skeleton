@@ -1,8 +1,9 @@
+import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from app.pages import registery
 from app.settings import BRAND
 
-def menu(registery):
+def apps(registery):
     return dbc.DropdownMenu(
         children=[
             dbc.DropdownMenuItem(page.name(), id=page.code(), href=page.code())
@@ -11,14 +12,28 @@ def menu(registery):
         nav=True,
         in_navbar=True,
         label="Applications",
-        id='nav-dropdown'
+        id='nav-apps'
     )
+
+def account():
+    return dbc.DropdownMenu(
+        children=[
+            dbc.DropdownMenuItem("Profile", id='profile', href="/profile"),
+            dbc.DropdownMenuItem("Change password", id='change-password', href="/change-password"),
+            dbc.DropdownMenuItem("Logout", id='logout', href="/logout")
+        ],
+        nav=True,
+        in_navbar=True,
+        label="Account",
+        id='nav-account'
+    )
+
 
 def navbar(registery):
     return dbc.NavbarSimple(
         children=[
-            menu(),
-            dbc.Button('Logout',  color="link")
+            apps(registery),
+            account(),
         ],
         brand=BRAND,
         brand_href="#",

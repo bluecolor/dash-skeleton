@@ -3,8 +3,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from app.settings import BRAND
+from flask_login import logout_user, current_user
 
+from app.settings import BRAND
 from .registery import Registery
 from .base import Page
 
@@ -20,19 +21,56 @@ def register_pages():
 
 def set_layout(app):
     from .components import navbar
-    app.layout = html.Div([
-        dcc.Location(id='url', refresh=False, href='/'),
-        navbar(),
-        html.Div(id='page-content')
-    ])
+
+    def serve_layout():
+        if current_user and current_user.is_authenticated:
+            return html.Div([
+                dcc.Location(id='url', refresh=False, href='/'),
+                navbar(registery),
+                html.Div(id='page-content')
+            ])
+        else:
+            return html.Div([
+                dcc.Location(id='url', refresh=False, href='/'),
+                html.Div(id='page-content')
+            ])
+
+    app.layout = serve_layout
 
 
 def init_app(app):
     set_layout(app)
 
+    from .auth import login, change_pass
+    from . import home
+
     @app.callback(
         dash.dependencies.Output('page-content', 'children'),
         [dash.dependencies.Input('url', 'pathname')])
     def display_page(pathname):
-        page = registery.get(pathname.split("/")[2])()
-        return page.render(app)
+
+        if not current_user or not current_user.is_authenticated:
+            return login.render()
+
+        if pathname == '/login':
+            if not current_user.is_authenticated:
+                return login.render()
+
+        if pathname == '/logout':
+            logout_user()
+            return login.render()
+
+        if pathname == '/home':
+            return home.render()
+
+        if pathname == '/change-password':
+            return change_pass.render()
+
+        page = registery.get(pathname.split("/")[1])()
+
+        if current_user.is_authenticated:
+            return page.render(app)
+
+        return login.render()
+
+

@@ -1,9 +1,11 @@
 import os
 from flask import Flask, request
+from flask_login import LoginManager
 from werkzeug.middleware.proxy_fix import ProxyFix
+
 from . import settings
 from .dash import create_dash
-
+from app import models
 
 class App(Flask):
     def __init__(self, *args, **kwargs):
@@ -15,21 +17,30 @@ class App(Flask):
         self.config.from_object("app.settings")
 
 app = create_dash()
+login_manager = LoginManager()
 
 def create_app():
     server = App()
     server.title = settings.TITLE
-    app.init_app(server)
+    from .models import db
+    from .import migrate
 
-    from . import pages, auth
+    db.init_app(server)
+    app.init_app(server)
+    migrate.init_app(server, db)
+
+    login_manager.init_app(server)
+    login_manager.login_view = '/login'
+
+    from . import pages
     pages.register_pages()
     pages.init_app(app)
 
-    # pages.init_app(app)
-    # auth.init_app(dash)
-
     return server
 
-
+@login_manager.user_loader
+def load_user(user_id):
+    print(user_id)
+    return models.User.query.get(int(user_id.split("-")[0]))
 
 

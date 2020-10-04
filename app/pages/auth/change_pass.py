@@ -95,7 +95,7 @@ def change_password(n_clicks, current_password, new_password):
             user.hash_password(new_password)
             models.db.session.commit()
             return success_alert, no_update
-        else:c
+        else:
             return failure_alert, no_update
     else:
         return '', no_update

@@ -86,7 +86,7 @@ def validate(current_password, new_password):
     [State('current-password', 'value'),
      State('new-password', 'value')]
 )
-def change_password(n_clicks, current_password, new_password):
+def submit(n_clicks, current_password, new_password):
 
     if n_clicks > 0:
         user = models.User.find_by_email(email=current_user.email).first()

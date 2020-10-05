@@ -36,7 +36,7 @@ def navbar(registery):
             account(),
         ],
         brand=BRAND,
-        brand_href="#",
+        brand_href="/",
         sticky="top",
         className="mb-5",
     )

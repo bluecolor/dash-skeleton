@@ -42,7 +42,7 @@ def init_app(app):
     set_layout(app)
 
     from .auth import login, change_pass
-    from . import home
+    from . import home, profile
 
     @app.callback(
         dash.dependencies.Output('page-content', 'children'),
@@ -60,11 +60,14 @@ def init_app(app):
             logout_user()
             return login.render()
 
-        if pathname == '/home':
+        if pathname == '/home' or pathname == "/" or not pathname:
             return home.render()
 
         if pathname == '/change-password':
             return change_pass.render()
+
+        if pathname == '/profile':
+            return profile.render()
 
         page = registery.get(pathname.split("/")[1])()
 

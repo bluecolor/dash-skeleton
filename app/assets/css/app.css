@@ -4,6 +4,7 @@
 }
 
 .change-password-title,
+.profile-title,
 .login-title {
     width: 100%;
     text-align: center;
@@ -12,6 +13,7 @@
     color: #424242;
 }
 
+.profile-title,
 .change-password-title {
     font-size: 22px;
     font-weight: 500;

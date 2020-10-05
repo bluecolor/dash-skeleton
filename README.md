@@ -27,7 +27,10 @@
 `export APP_DATABASE_URL=postgresql://dash:dash@localhost:5432/dash`
 
 - Create tables
-`python manage.py database create-tables`
+
+```sh
+python manage.py database create-tables
+```
 
 - Create user
 `python manage.py user create <name> <email> <password>`

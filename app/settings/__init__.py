@@ -4,6 +4,15 @@ from .helpers import (
     array_from_string
 )
 
+LOG_LEVEL = os.environ.get("DASH_LOG_LEVEL", "INFO")
+LOG_STDOUT = parse_boolean(os.environ.get("DASH_LOG_STDOUT", "false"))
+LOG_PREFIX = os.environ.get("DASH_LOG_PREFIX", "")
+LOG_FORMAT = os.environ.get(
+    "DASH_LOG_FORMAT",
+    LOG_PREFIX + "[%(asctime)s][PID:%(process)d][%(levelname)s][%(name)s] %(message)s",
+)
+
+
 SQLALCHEMY_DATABASE_URI = os.environ.get(
     "APP_DATABASE_URL", os.environ.get("DATABASE_URL", "postgresql:///postgres")
 )

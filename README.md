@@ -29,7 +29,7 @@ virtualenv -p python3 venv
 pip install -r requirements.txt
 ```
 
-- Setup database (tested with postgres)
+- Setup database (tested with postgre)
 ```
 export APP_DATABASE_URL=postgresql://dash:dash@localhost:5432/dash
 ```

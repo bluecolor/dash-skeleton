@@ -12,4 +12,28 @@
 - [x] https `gunicorn --certfile=server.crt --keyfile=server.key --bind 0.0.0.0:443 "app:create_app()"`
 
 
-#### Create User
+### Usage
+
+- Create virtual environment
+`virtualenv -p python3 venv`
+
+- Activate
+`. venv/bin/activate`
+
+- Install dependencies
+`pip install -r requirements.txt`
+
+- Setup database (tested with postgres)
+`export APP_DATABASE_URL=postgresql://dash:dash@localhost:5432/dash`
+
+- Create tables
+`python manage.py database create-tables`
+
+- Create user
+`python manage.py user create <name> <email> <password>`
+
+- Run
+`chmod +x debug.sh`
+`./debug.sh`
+
+Enjoy.

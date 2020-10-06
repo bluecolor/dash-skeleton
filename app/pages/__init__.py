@@ -49,6 +49,9 @@ def init_app(app):
         [dash.dependencies.Input('url', 'pathname')])
     def display_page(pathname):
 
+        if not pathname:
+            return
+
         if not current_user or not current_user.is_authenticated:
             return login.render()
 

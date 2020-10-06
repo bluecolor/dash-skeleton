@@ -30,6 +30,7 @@ pip install -r requirements.txt
 ```
 
 - Setup database (tested with postgre and sqlite)
+
 if you use sqlite
 ```
 export APP_DATABASE_URL=sqlite:///dash.db

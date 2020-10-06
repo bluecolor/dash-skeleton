@@ -59,7 +59,7 @@ chmod +x debug.sh
 
 ### Adding new pages
 
-Put new pages under app/pages/ext folder like the `hello.py` example.
+Put new pages under `app/pages/ext` folder like the `hello.py` example.
 It will automacilly appear in "Applications" in navigation bar.
 
 Basic example:

@@ -1,7 +1,6 @@
 import os
 from .helpers import (
-    parse_boolean,
-    array_from_string
+    parse_boolean
 )
 
 LOG_LEVEL = os.environ.get("DASH_LOG_LEVEL", "INFO")
@@ -41,7 +40,3 @@ SECRET_KEY = os.environ.get(
 
 TITLE = os.environ.get('DASH_TITLE', 'Dash')
 BRAND = os.environ.get('DASH_BRAND', 'Dash')
-
-# PLUGINS_DIRECTORY = array_from_string(
-#     os.environ.get('DASH_PLUGINS_DIRECTORY', 'app.plugins.ext')
-# )

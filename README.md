@@ -91,4 +91,11 @@ class MyPage(Page):
         return html.Div([ html.H3('Hello') ])
 ```
 
+### Additional settings
+
+```sh
+export DASH_TITLE=<title> # Browser Title
+export DASH_BRAND=<brand> # Nav Brand
+```
+
 Enjoy.

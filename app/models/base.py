@@ -1,7 +1,7 @@
 import functools
 from flask_sqlalchemy import BaseQuery, SQLAlchemy
 from sqlalchemy.pool import NullPool
-from sqlalchemy_searchable import make_searchable
+# from sqlalchemy_searchable import make_searchable
 
 from app import settings
 from app.utils import json_dumps
@@ -31,7 +31,7 @@ db.configure_mappers()
 
 # listen to a few database events to set up functions, trigger updates
 # and indexes for the full text search
-make_searchable(db.metadata, options={"regconfig": "pg_catalog.simple"})
+# make_searchable(db.metadata, options={"regconfig": "pg_catalog.simple"})
 
 Column = functools.partial(db.Column, nullable=False)
 

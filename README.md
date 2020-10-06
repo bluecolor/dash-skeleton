@@ -89,6 +89,6 @@ class MyPage(Page):
 
     def render(self, app):
         return html.Div([ html.H3('Hello') ])
-
+```
 
 Enjoy.

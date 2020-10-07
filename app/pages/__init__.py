@@ -72,10 +72,10 @@ def init_app(app):
         if pathname == '/profile':
             return profile.render()
 
-        page = registery.get(pathname.split("/")[1])()
+        page = registery.get(pathname.split("/")[1])
 
         if current_user.is_authenticated:
-            return page.render(app)
+            return page.render()
 
         return login.render()
 

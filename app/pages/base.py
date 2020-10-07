@@ -20,5 +20,6 @@ class Page():
     def enabled(cls):
         return True
 
-    def render(self):
+    @classmethod
+    def render(cls):
         raise NotImplementedError()

@@ -38,5 +38,10 @@ SECRET_KEY = os.environ.get(
     "DASH_SECRET_KEY", "151ef7f3e4790057309ef99be3ee3c569b1aac10f18a0088baaf557d8282eb86"
 )
 
+
+CACHE_TYPE = os.environ.get("DASH_CACHE_TYPE", "simple")
+
+
+
 TITLE = os.environ.get('DASH_TITLE', 'Dash')
 BRAND = os.environ.get('DASH_BRAND', 'Dash')

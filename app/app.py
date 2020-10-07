@@ -23,10 +23,11 @@ def create_app():
     server = App()
     server.title = settings.TITLE
     from .models import db
-    from .import migrate
+    from . import migrate, cache
 
     db.init_app(server)
     app.init_app(server)
+    cache.init_app(server)
     migrate.init_app(server, db)
 
     login_manager.init_app(server)

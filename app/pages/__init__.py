@@ -27,12 +27,20 @@ def set_layout(app):
             return html.Div([
                 dcc.Location(id='url', refresh=False, href='/'),
                 navbar(registery),
-                html.Div(id='page-content')
+                dcc.Loading(
+                    id="loading-1",
+                    children=[html.Div(id='page-content')],
+                    type="circle",
+                )
             ])
         else:
             return html.Div([
                 dcc.Location(id='url', refresh=False, href='/'),
-                html.Div(id='page-content')
+                dcc.Loading(
+                    id="loading-1",
+                    children=[html.Div(id='page-content')],
+                    type="circle",
+                )
             ])
 
     app.layout = serve_layout

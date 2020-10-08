@@ -65,7 +65,7 @@ def render():
 )
 def login_success(n_clicks, email, password):
 
-    if n_clicks > 0:
+    if n_clicks and n_clicks > 0:
         user = models.User.find_by_email(email=email).first()
 
         if user and user.verify_password(password):

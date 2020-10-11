@@ -18,3 +18,13 @@
     font-size: 22px;
     font-weight: 500;
 }
+
+#login-container {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+#login-container #form-container {
+    flex-grow: 0.5 !important;
+}

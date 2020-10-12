@@ -16,6 +16,7 @@ class App(Flask):
         # Configure App using our settings
         self.config.from_object("app.settings")
 
+
 app = create_dash()
 login_manager = LoginManager()
 

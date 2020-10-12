@@ -7,7 +7,7 @@ def apps(registery):
     return dbc.DropdownMenu(
         children=[
             dbc.DropdownMenuItem(page["name"], id=f"{page['id']}", href=f"{page['id']}")
-            for page in registery.pages
+            for page in sorted(registery.pages, key = lambda i: i['name'])
         ],
         nav=True,
         in_navbar=True,

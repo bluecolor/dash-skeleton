@@ -29,7 +29,7 @@ def render():
                         )
                     )
                 )
-                for page in registery.pages
+                for page in sorted(registery.pages, key = lambda i: i['name'])
             ],
             width={"size": 6, "offset": 3},
         )

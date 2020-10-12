@@ -67,29 +67,29 @@ Basic example:
 
 ```py
 import dash_html_components as html
-from app.pages import Page, registery
+from app.pages import registery
 
-class Hello(Page):
-    def render(self, app):
-        return html.Div([ html.H3('Hello') ])
+# registery item props
+#
+# render: Render method
+# name: Report name
+# id: Report id
+# groups: [Report group]
+# descripttion: Report description
 
-registery.register(Hello)
-```
+def render():
+    return html.Div([ html.H3('Hello') ])
 
 
-Example with custom navigation title:
-```py
-import dash_html_components as html
-from app.pages import Page, registery
+item = {
+    "render": render,
+    "name": "Hello report",
+    "id": "20",
+    "groups": ["analytics", "ai"],
+    "description": """My another awesome report"""
+}
 
-class MyPage(Page):
-    # Custom Navigation title
-    @classmethod
-    def name(cls):
-        return "My Awesome Dashboard"
-
-    def render(self, app):
-        return html.Div([ html.H3('Hello') ])
+registery.register(item)
 ```
 
 ### Additional settings

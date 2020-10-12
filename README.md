@@ -73,7 +73,7 @@ from app.pages import registery
 #
 # render: Render method
 # name: Report name
-# id: Report id
+# id: Report id, optional
 # groups: [Report group]
 # descripttion: Report description
 

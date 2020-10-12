@@ -1,10 +1,11 @@
 .navbar {
     background-color: #fff !important;
-    border-bottom: solid 1px #ccc;
+    /* border-bottom: solid 1px #ccc; */
 }
 
 #page-content {
     overflow-x: hidden;
+    padding-top: 6.5em;
 }
 
 .change-password-title,
@@ -44,4 +45,13 @@
 
 .home .card:hover {
     border-color: #1976d2;
+}
+
+nav.navbar {
+    position: fixed;
+    width: 100%;
+    margin: 0 0 auto 0;
+    z-index: 1024!important;
+    background-color: var(--gfg-tint-color);
+    box-shadow: 0 15px 10px -15px #1111112b;
 }

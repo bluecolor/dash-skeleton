@@ -32,3 +32,12 @@
 #login-container #form-container {
     flex-grow: 0.5 !important;
 }
+
+
+.card-body .report-desc {
+    color: #888;
+}
+
+.card-report-link:hover {
+    text-decoration: unset;
+}

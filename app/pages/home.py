@@ -12,10 +12,19 @@ def render():
                     dbc.Col(
                         dcc.Link(
                             dbc.Card(
-                                dbc.CardBody(page["name"]),
+                                dbc.CardBody(
+                                    children = [
+                                        html.H4(page["name"]),
+                                        html.P(
+                                            page.get("description", ""),
+                                            className="report-desc"
+                                        )
+                                    ]
+                                ),
                                 className="mb-3",
                             ),
-                            href=f"{page['id']}"
+                            href=f"{page['id']}",
+                            className="card-report-link"
                         )
                     )
                 )

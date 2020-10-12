@@ -62,14 +62,18 @@ def render():
 
 
 @app.callback(
-    [Output('login-url', 'pathname'),
-     Output('login-alert', 'children')],
+    [
+        Output('login-url', 'pathname'),
+        Output('login-alert', 'children')
+    ],
     [
         Input('login-button', 'n_clicks'),
         Input('login-password', 'n_submit')
     ],
-    [State('login-email', 'value'),
-     State('login-password', 'value')]
+    [
+        State('login-email', 'value'),
+        State('login-password', 'value')
+    ]
 )
 def login_success(n_clicks, n_submit, email, password):
 

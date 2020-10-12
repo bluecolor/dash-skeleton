@@ -7,7 +7,6 @@ from flask_login import logout_user, current_user
 
 from app.settings import BRAND
 from .registery import Registery
-from .base import Page
 
 registery = Registery()
 
@@ -83,7 +82,7 @@ def init_app(app):
         page = registery.get(pathname.split("/")[1])
 
         if current_user.is_authenticated:
-            return page.render()
+            return page["render"]()
 
         return login.render()
 

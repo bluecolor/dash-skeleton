@@ -6,7 +6,7 @@ from app.settings import BRAND
 def apps(registery):
     return dbc.DropdownMenu(
         children=[
-            dbc.DropdownMenuItem(page.name(), id=page.code(), href=page.code())
+            dbc.DropdownMenuItem(page["name"], id=f"{page['id']}", href=f"{page['id']}")
             for page in registery.pages
         ],
         nav=True,

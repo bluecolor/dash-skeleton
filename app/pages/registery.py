@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 logger = logging.getLogger("pages.registery")
 
@@ -8,21 +9,26 @@ class Registery:
         self.__registery = dict()
 
     def register(self, page):
-        if page.enabled():
-            logger.debug("Registering %s page.", page.code())
-            if self.__registery.get(page.code()) is not None:
+        if page.get("id") is None:
+            logger.warn("Page doesnot have id setting one")
+            page["id"] = page.get("id", str(uuid.uuid4()))
+
+        if page.get("enabled", True):
+            logger.debug("Registering %s page.", page["id"])
+            if self.__registery.get(page["id"]) is not None:
                 raise ValueError(
-                    f"""Name {page.code()} with page already registered.
+                    f"""Name {page["id"]} with page already registered.
                         pages codes must be unique!
                     """
                 )
-            self.__registery[page.code()] = page
+            self.__registery[page["id"]] = page
         else:
             logger.debug(
-                """%s page is not enabled, not registering.""", page.code(),
+                """%s page is not enabled, not registering.""", page["id"],
             )
 
     def get(self, name):
+        print(self.__registery)
         return self.__registery.get(name)
 
     @property

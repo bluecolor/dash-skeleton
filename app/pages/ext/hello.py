@@ -1,11 +1,23 @@
 import dash_html_components as html
-from app.pages import Page, registery
+from app.pages import registery
 
-class Hello(Page):
+# registery item props
+# render: Render method
+# name: Report name
+# id: Report id
+# groups: [Report group]
+# descripttion: Report description
 
-    @classmethod
-    def render(cls):
-        print("xxx")
-        return html.Div([ html.H3('Hello') ])
+def render():
+    return html.Div([ html.H3('Hello') ])
 
-registery.register(Hello)
+
+item = {
+    "render": render,
+    "name": "Hello report",
+    "id": "20",
+    "groups": ["analytics", "ai"],
+    "description": """My another awesome report"""
+}
+
+registery.register(item)

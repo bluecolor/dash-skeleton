@@ -7,6 +7,7 @@ from app.pages import registery
 def render():
     return dbc.Row(
         dbc.Col(
+            className="home",
             children=[
                 dbc.Row(
                     dbc.Col(

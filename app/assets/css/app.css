@@ -41,3 +41,7 @@
 .card-report-link:hover {
     text-decoration: unset;
 }
+
+.home .card:hover {
+    border-color: #1976d2;
+}

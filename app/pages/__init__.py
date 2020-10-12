@@ -28,7 +28,9 @@ def set_layout(app):
                 navbar(registery),
                 dcc.Loading(
                     id="loading-1",
-                    children=[html.Div(id='page-content')],
+                    children=[
+                        html.Div(id='page-content')
+                    ],
                     type="circle",
                 )
             ])

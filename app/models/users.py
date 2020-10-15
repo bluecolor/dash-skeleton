@@ -1,3 +1,4 @@
+from enum import unique
 from functools import reduce
 import logging
 import hashlib
@@ -21,6 +22,7 @@ class User(
     __tablename__ = "users"
 
     id = Column(db.Integer, primary_key=True)
+    username = Column(db.String(320), unique=True)
     name = Column(db.String(320))
     email = Column(EmailType)
     password_hash = Column(db.String(128), nullable=True)
@@ -37,15 +39,13 @@ class User(
     def to_dict(self):
         d = {
             "id": self.id,
+            "username": self.username,
             "name": self.name,
             "email": self.email,
         }
 
         return d
 
-    @classmethod
-    def get_by_email(cls, email):
-        return cls.query.filter(cls.email == email).one()
 
     @classmethod
     def get_by_id(cls, user_id):
@@ -66,6 +66,10 @@ class User(
     @classmethod
     def find_by_email(cls, email):
         return cls.query.filter(cls.email == email)
+
+    @classmethod
+    def find_by_username(cls, username):
+        return cls.query.filter(cls.username == username).one()
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)

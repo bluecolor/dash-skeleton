@@ -42,6 +42,17 @@ SECRET_KEY = os.environ.get(
 CACHE_TYPE = os.environ.get("DASH_CACHE_TYPE", "simple")
 
 
-
 TITLE = os.environ.get('DASH_TITLE', 'Dash')
 BRAND = os.environ.get('DASH_BRAND', 'Dash')
+
+# available auth methods: ldap, db
+AUTH_METHOD = os.environ.get('DASH_AUTH_METHOD', 'ldap')
+
+# ldap
+LDAP_URL = os.environ.get('DASH_LDAP_URL', 'ldap://localhost:389')
+LDAP_USERNAME = os.environ.get('DASH_LDAP_USERNAME', 'cn=admin,dc=example,dc=org')
+LDAP_PASSWORD = os.environ.get('DASH_LDAP_PASSWORD', 'admin')
+LDAP_BASE_DN = os.environ.get("DASH_LDAP_BASE_DN", "dc=example,dc=org")
+LDAP_QUERY = os.environ.get('DASH_LDAP_QUERY', '(cn=%s)')
+
+LDAP_PROP_EMAIL = os.environ.get("DASH_LDAP_PROP_IMAIL", "mail")

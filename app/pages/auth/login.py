@@ -6,8 +6,8 @@ from dash import no_update
 from dash.dependencies import Input, Output, State
 from flask_login import login_user
 
-from app import app, models
-
+from app import app, models, settings
+from app.utils import ldap
 
 success_alert = dbc.Alert(
     'Logged in successfully. Taking you home!',
@@ -44,13 +44,13 @@ def render():
                                 dbc.Label(
                                     "Login", className="login-title mb-5"),
 
-                                dbc.Input(id='login-email',
-                                          autoFocus=True, placeholder="Email"),
+                                dbc.Input(id='login-username',
+                                          autoFocus=True, placeholder="Username"),
                                 html.Br(),
                                 dbc.Input(
                                     id='login-password', type='password', placeholder="Password"),
                                 html.Br(),
-                                dbc.Button('Submit', color='primary',
+                                dbc.Button('Login', color='primary',
                                            block=True, id='login-button'),
                             ]
                         )
@@ -71,19 +71,30 @@ def render():
         Input('login-password', 'n_submit')
     ],
     [
-        State('login-email', 'value'),
+        State('login-username', 'value'),
         State('login-password', 'value')
     ]
 )
-def login_success(n_clicks, n_submit, email, password):
+def login_success(n_clicks, n_submit, username, password):
 
     if (n_submit and n_submit > 0) or (n_clicks and n_clicks > 0):
-        user = models.User.find_by_email(email=email).first()
 
-        if user and user.verify_password(password):
-            login_user(user)
-            return '/home', success_alert
+        if settings.AUTH_METHOD == 'db':
+            user = models.User.find_by_username(username).first()
+            if user and user.verify_password(password):
+                login_user(user)
+                return '/home', success_alert
+            else:
+                return no_update, failure_alert
+        elif settings.AUTH_METHOD == 'ldap':
+            user = ldap.auth_user(username, password)
+            if user:
+                login_user(user)
+                return '/home', success_alert
+            else:
+                return no_update, failure_alert
         else:
-            return no_update, failure_alert
+            raise ValueError("Unsupported login method: " + settings.AUTH_METHOD)
+
     else:
         return no_update, ''

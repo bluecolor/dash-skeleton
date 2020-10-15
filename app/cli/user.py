@@ -9,20 +9,20 @@ manager = AppGroup(help="Manage the users")
 
 @manager.command()
 @click.argument('name', nargs=1)
-@click.argument('email', nargs=1)
+@click.argument('username', nargs=1)
 @click.argument('password', nargs=1)
-def create(name, email, password):
+def create(name, username, password):
     """Create user"""
     _wait_for_db_connection(models.db)
 
     try:
-        user = models.User.get_by_email(email)
+        user = models.User.find_by_username(username)
         if user is not None:
-            raise ValueError("Email already exists")
+            raise ValueError("Username already exists")
     except NoResultFound:
         pass
 
-    user = models.User(name=name, email=email)
+    user = models.User(name=name, username=username)
     user.hash_password(password)
     models.db.session.add(user)
     models.db.session.commit()

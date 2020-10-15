@@ -41,6 +41,12 @@ if you use postgre
 export APP_DATABASE_URL=postgresql://dash:dash@localhost:5432/dash
 ```
 
+- Drop tables
+```sh
+python manage.py database drop-tables
+```
+
+
 - Create tables
 ```sh
 python manage.py database create-tables

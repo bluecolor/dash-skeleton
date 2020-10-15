@@ -20,7 +20,7 @@ def auth_user(username, password):
         if (len(result)) == 0:
             return None
 
-        user, props = result
+        user, props = result.pop()
         client.simple_bind_s(user, password)
 
         # authenticated

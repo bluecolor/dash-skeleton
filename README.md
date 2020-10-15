@@ -12,6 +12,7 @@
 - [x] https `gunicorn --certfile=server.crt --keyfile=server.key --bind 0.0.0.0:443 "app:create_app()"`
 - [x] caching
 - [x] loading indicator
+- [x] ldap integration
 
 ### Usage
 

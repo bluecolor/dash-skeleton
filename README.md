@@ -65,9 +65,11 @@ chmod +x debug.sh
 ```
 
 
-### Adding new pages
+### Adding new sub-apps
 
-Put new pages under `app/pages/ext` folder like the `hello.py` example.
+Put new folders under `app/pages/ext`.
+Each added folder represents a sub application
+Each added folder must contain app.py file
 It will automacilly appear in "Applications" in navigation bar.
 
 Basic example:

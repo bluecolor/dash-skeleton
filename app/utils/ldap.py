@@ -17,7 +17,7 @@ def auth_user(username, password):
         result = client.search_s(
             settings.LDAP_BASE_DN, ldap.SCOPE_SUBTREE, query)
 
-        if (len(result)) == 0:
+        if len(result) == 0:
             return None
 
         user, props = result.pop()

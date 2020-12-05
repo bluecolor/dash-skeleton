@@ -24,7 +24,7 @@ class User(
     id = Column(db.Integer, primary_key=True)
     username = Column(db.String(320), unique=True)
     name = Column(db.String(320))
-    email = Column(EmailType)
+    email = Column(EmailType, nullable=True)
     password_hash = Column(db.String(128), nullable=True)
 
     def __str__(self):

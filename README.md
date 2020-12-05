@@ -55,7 +55,7 @@ python manage.py database create-tables
 
 - Create user
 ```
-python manage.py user create <name> <email> <password>
+python manage.py user create <name> <username> <password>
 ```
 
 - Run

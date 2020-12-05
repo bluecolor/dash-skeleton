@@ -80,7 +80,7 @@ def login_success(n_clicks, n_submit, username, password):
     if (n_submit and n_submit > 0) or (n_clicks and n_clicks > 0):
 
         if settings.AUTH_METHOD == 'db':
-            user = models.User.find_by_username(username).first()
+            user = models.User.find_by_username(username)
             if user and user.verify_password(password):
                 login_user(user)
                 return '/home', success_alert

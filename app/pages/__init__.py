@@ -1,3 +1,4 @@
+import logging
 import os
 import dash
 import dash_core_components as dcc
@@ -8,15 +9,19 @@ from flask_login import logout_user, current_user
 from app.settings import BRAND
 from .registery import Registery
 
+logger = logging.getLogger("pages.registery")
+
 registery = Registery()
 
 
 def register_pages():
+    black_list = ['__pycache__']
     for f in os.listdir("app/pages/ext"):
-        if os.path.isfile(f"app/pages/ext/{f}") and ".".join(f.split(".")[-1:]) == "py":
-            name = ".".join(f.split(".")[:-1])
-            __import__(f"app.pages.ext.{name}")
-
+        if os.path.isdir(f"app/pages/ext/{f}") and f not in black_list:
+            if os.path.exists(f"app/pages/ext/{f}/app.py"):
+                __import__(f"app.pages.ext.{f}.app")
+            else:
+                logger.warning(f"No app.py exists under {f}")
 
 def set_layout(app):
     from .components import navbar

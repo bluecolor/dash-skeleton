@@ -9,6 +9,8 @@ logger = logging.getLogger("util.ldap")
 
 
 def auth_user(username, password):
+    if not password:
+        return None
     try:
         client = ldap.initialize(settings.LDAP_URL)
         client.simple_bind_s(settings.LDAP_USERNAME, settings.LDAP_PASSWORD)
@@ -22,12 +24,18 @@ def auth_user(username, password):
 
         user, props = result.pop()
         client.simple_bind_s(user, password)
+        client.unbind_s()
+
+        groups = "`".join([dict(kv.split('=') for kv in p.decode('utf-8').split(',')
+               if kv.split('=')[0] == 'CN')['CN'].strip() for p in props.get('memberOf')])
 
         # authenticated
         # check user in db and create it if not exists
-
         try:
+            # find user and update groups
             user = models.User.find_by_username(username)
+            user.groups = groups
+            models.db.session.commit()
             return user
         except NoResultFound:
             logger.info("New user, creating ...")
@@ -37,7 +45,7 @@ def auth_user(username, password):
         else:
             email = None
 
-        user = models.User(name=username, username=username, email=email)
+        user = models.User(name=username, username=username, email=email, groups=groups)
         models.db.session.add(user)
         models.db.session.commit()
         return user

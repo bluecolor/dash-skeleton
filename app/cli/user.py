@@ -22,7 +22,7 @@ def create(name, username, password):
     except NoResultFound:
         pass
 
-    user = models.User(name=name, username=username)
+    user = models.User(name=name, username=username, groups="$admin$")
     user.hash_password(password)
     models.db.session.add(user)
     models.db.session.commit()

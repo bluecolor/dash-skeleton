@@ -23,6 +23,7 @@ def register_pages():
             else:
                 logger.warning(f"No app.py exists under {f}")
 
+
 def set_layout(app):
     from .components import navbar
 
@@ -55,7 +56,7 @@ def set_layout(app):
 def init_app(app):
     set_layout(app)
 
-    from .auth import login, change_pass
+    from .auth import login, change_pass, unauthorized
     from . import home, profile
 
     @app.callback(
@@ -88,9 +89,16 @@ def init_app(app):
 
         page = registery.get(pathname.split("/")[1])
 
-        if current_user.is_authenticated:
+        if not current_user.is_authenticated:
+            return login.render()
+
+        # check if there is a match in groups
+        page_groups = set([g.lower() for g in page.get('groups', [])])
+        user_groups = set([g.lower() for g in current_user.groups.split("`")])
+        if len(page_groups.intersection(user_groups)) > 0:
             return page["render"]()
 
-        return login.render()
-
-
+        if '$admin$' in [g.lower() for g in current_user.groups.split("`")]:
+            return page["render"]()
+        else:
+            return unauthorized.render()

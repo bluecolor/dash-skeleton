@@ -26,6 +26,7 @@ class User(
     name = Column(db.String(320))
     email = Column(EmailType, nullable=True)
     password_hash = Column(db.String(128), nullable=True)
+    groups = Column(db.String(), nullable=True)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.email)

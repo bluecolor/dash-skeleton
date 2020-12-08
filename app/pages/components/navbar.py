@@ -11,7 +11,7 @@ def is_authorized(page):
     if len(page_groups.intersection(user_groups)) > 0:
         return True
 
-    if '$admin$' in [g.lower() for g in current_user.groups.split("`")]:
+    if '$admin$' in user_groups:
         return True
 
     return False

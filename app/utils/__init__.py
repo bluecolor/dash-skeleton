@@ -81,3 +81,15 @@ def render_template(path, context):
     function decorated with the `context_processor` decorator, which is not explicitly required for rendering purposes.
     """
     current_app.jinja_env.get_template(path).render(**context)
+
+
+def is_authorized(current_user, page):
+    page_groups = set([g.lower() for g in page.get('groups', [])])
+    user_groups = set([g.lower() for g in current_user.groups.split("`")])
+    if len(page_groups.intersection(user_groups)) > 0:
+        return True
+
+    if '$admin$' in user_groups:
+        return True
+
+    return False

@@ -12,7 +12,9 @@ def auth_user(username, password):
     if not password:
         return None
     try:
+        ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
         client = ldap.initialize(settings.LDAP_URL)
+        client.start_tls_s()
         client.simple_bind_s(settings.LDAP_USERNAME, settings.LDAP_PASSWORD)
 
         query = settings.LDAP_QUERY % username

@@ -1,3 +1,4 @@
+import logging
 from logging import PlaceHolder
 import dash_html_components as html
 import dash_core_components as dcc
@@ -8,6 +9,8 @@ from flask_login import login_user
 
 from app import app, models, settings
 from app.utils import ldap
+
+logger = logging.getLogger("pages.login")
 
 success_alert = dbc.Alert(
     'Logged in successfully. Taking you home!',
@@ -83,18 +86,22 @@ def login_success(n_clicks, n_submit, username, password):
             user = models.User.find_by_username(username)
             if user and user.verify_password(password):
                 login_user(user)
+                logger.info("Login success %s" % user)
                 return '/home', success_alert
             else:
+                logger.info("Login error %s" % username)
                 return no_update, failure_alert
         elif settings.AUTH_METHOD == 'ldap':
             user = ldap.auth_user(username, password)
             if user:
                 login_user(user)
+                logger.info("Login success %s" % user)
                 return '/home', success_alert
             else:
+                logger.info("Login error %s" % username)
                 return no_update, failure_alert
         else:
+            logger.info("Login error %s" % username)
             raise ValueError("Unsupported login method: " + settings.AUTH_METHOD)
-
     else:
         return no_update, ''

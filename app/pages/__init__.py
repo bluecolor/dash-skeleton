@@ -9,7 +9,7 @@ from flask_login import logout_user, current_user
 from app.settings import BRAND
 from .registery import Registery
 
-logger = logging.getLogger("pages.registery")
+logger = logging.getLogger("pages.pages")
 
 registery = Registery()
 
@@ -63,6 +63,7 @@ def init_app(app):
         dash.dependencies.Output('page-content', 'children'),
         [dash.dependencies.Input('url', 'pathname')])
     def display_page(pathname):
+        logger.info("Page %s User %s", pathname, current_user)
 
         if not pathname:
             return

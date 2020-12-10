@@ -63,6 +63,7 @@ def init_app(app):
         dash.dependencies.Output('page-content', 'children'),
         [dash.dependencies.Input('url', 'pathname')])
     def display_page(pathname):
+
         logger.info("Page %s User %s", pathname, current_user)
 
         if not pathname:

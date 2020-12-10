@@ -37,7 +37,8 @@ def navbar(registery):
     return dbc.NavbarSimple(
         children=[
             apps(registery),
-            account(),
+            dbc.NavItem(dbc.NavLink("Logout", href="/logout"))
+            # account(),
         ],
         brand=BRAND,
         brand_href="/",
